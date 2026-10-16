@@ -4,7 +4,7 @@ HTML
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificación de Certificado</title>
+    <title>VALIDADOR - Verificación</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,118 +13,88 @@ HTML
             font-family: Arial, Helvetica, sans-serif;
         }
         body {
-            background-color: #EBEBEB;
+            background-color: #5c6873;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
             min-height: 100vh;
         }
-        /* Barra superior color guinda idéntica a tu imagen */
-        header {
-            background-color: #8C223A;
-            height: 55px;
+        /* Contenedor que adapta perfectamente tu imagen definitiva */
+        .wrapper {
+            position: relative;
             width: 100%;
+            max-width: 1280px;
         }
-        /* Contenedor central idéntico */
-        .main-container {
-            flex: 1;
-            max-width: 950px;
+        .wrapper img {
             width: 100%;
-            margin: 0 auto;
-            background-color: #EBEBEB;
-            padding: 40px 40px;
-        }
-        h2 {
-            font-size: 24px;
-            color: #000000;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-        .form-group {
-            margin-bottom: 25px;
-        }
-        label {
             display: block;
-            color: #A6192E;
-            font-size: 15px;
-            font-weight: bold;
-            margin-bottom: 8px;
         }
-        input[type="text"], select {
-            width: 100%;
-            padding: 14px 12px;
-            border: 1px solid #CCCCCC;
-            background-color: #FAFAFA;
-            font-size: 15px;
-            color: #333333;
-            border-radius: 2px;
-        }
-        input[type="text"]:focus, select:focus {
-            outline: none;
-            border-color: #8C223A;
-            background-color: #FFFFFF;
-        }
-        .btn-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 35px;
-        }
-        button {
-            background-color: #932238;
-            color: white;
+        /* Casilla interactiva para el N° de Certificado (calzada sobre la imagen) */
+        .input-cert {
+            position: absolute;
+            top: 17.0%;
+            left: 11.5%;
+            width: 76%;
+            height: 5.2%;
             border: none;
-            padding: 10px 22px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 4px;
+            background: transparent;
+            padding: 8px 12px;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+        }
+        /* Casilla interactiva para el selector de País (calzada sobre la imagen) */
+        .select-pais {
+            position: absolute;
+            top: 29.3%;
+            left: 11.5%;
+            width: 76%;
+            height: 5.2%;
+            border: none;
+            background: transparent;
+            padding: 8px 12px;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+        }
+        /* Botón invisible o transparente colocado exactamente sobre el botón rojo "Consultor" de tu imagen */
+        .btn-consultor {
+            position: absolute;
+            top: 38.2%;
+            left: 78.5%;
+            width: 9.2%;
+            height: 4.5%;
+            background-color: transparent;
+            border: none;
             cursor: pointer;
-        }
-        button:hover {
-            background-color: #751B2C;
-        }
-        /* Franja gris inferior */
-        footer {
-            background-color: #5C6873;
-            height: 70px;
-            width: 100%;
-            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <header></header>
+    <div class="wrapper">
+        <!-- Tu imagen definitiva con todos los textos, títulos y estilos -->
+        <img src="fondo.png" alt="VALIDADOR">
 
-    <div class="main-container">
-        <h2>Verificación</h2>
+        <!-- Entradas interactivas ubicadas exactamente sobre los espacios en blanco -->
+        <input type="text" id="certificado" class="input-cert">
         
-        <div class="form-group">
-            <label for="certificado">N° de Certificado:*</label>
-            <input type="text" id="certificado" placeholder="">
-        </div>
+        <select id="pais" class="select-pais">
+            <option value="">--Seleccione--</option>
+            <option value="Chile">Chile</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Peru">Perú</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Mexico">México</option>
+            <option value="Espana">España</option>
+            <option value="Otro">Otro</option>
+        </select>
 
-        <div class="form-group">
-            <label for="pais">País:*</label>
-            <select id="pais">
-                <option value="">--Seleccione--</option>
-                <option value="Chile">Chile</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Peru">Perú</option>
-                <option value="Colombia">Colombia</option>
-                <option value="Mexico">México</option>
-                <option value="Espana">España</option>
-                <option value="Otro">Otro</option>
-            </select>
-        </div>
-
-        <div class="btn-container">
-            <button id="btnConsultor">Consultor</button>
-        </div>
+        <button id="btnConsultor" class="btn-consultor"></button>
     </div>
 
-    <footer></footer>
-
     <script>
-        // Prellenar automáticamente el certificado y el país desde el enlace
+        // Prellenar automáticamente los datos si vienen por parámetros en la URL
         const urlParams = new URLSearchParams(window.location.search);
         const certParam = urlParams.get('certificado');
         const paisParam = urlParams.get('pais');
@@ -136,7 +106,7 @@ HTML
             document.getElementById('pais').value = paisParam;
         }
 
-        // Al hacer clic en "Consultor", busca y descarga el PDF asociado al número de certificado
+        // Al hacer clic en el botón "Consultor", abre o descarga el PDF asociado al número ingresado
         document.getElementById('btnConsultor').addEventListener('click', function() {
             const certificadoVal = document.getElementById('certificado').value.trim();
             const paisVal = document.getElementById('pais').value;
@@ -146,7 +116,7 @@ HTML
                 return;
             }
 
-            // Abre o descarga el PDF que subiste a GitHub con ese número (Ej: 12345.pdf)
+            // Abre el archivo PDF guardado con ese número exacto en tu repositorio (Ej: 123456.pdf)
             window.open(`${certificadoVal}.pdf`, '_blank');
         });
     </script>
