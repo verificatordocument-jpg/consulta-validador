@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,110 +13,84 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background-color: #f0f0f0;
+            background-color: #5c6873;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
             min-height: 100vh;
         }
-        header {
-            background-color: #8B1E3F;
-            height: 40px;
+        .wrapper {
+            position: relative;
             width: 100%;
+            max-width: 1280px;
         }
-        .main-container {
-            flex: 1;
-            max-width: 900px;
+        .wrapper img {
             width: 100%;
-            margin: 40px auto;
-            background-color: #f0f0f0;
-            padding: 20px;
-        }
-        h2 {
-            font-size: 22px;
-            color: #000;
-            margin-bottom: 25px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
             display: block;
-            color: #A30000;
-            font-size: 14px;
-            margin-bottom: 8px;
         }
-        input[type="text"], select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #dcdcdc;
-            background-color: #fafafa;
-            font-size: 14px;
-            color: #333;
-            border-radius: 2px;
-        }
-        input[type="text"]:focus, select:focus {
+        .input-cert {
+            position: absolute;
+            top: 16.5%;
+            left: 9.3%;
+            width: 61.5%;
+            height: 4.2%;
+            border: 1px solid #ccc;
+            background: #fafafa;
+            padding: 8px 12px;
+            font-size: 15px;
             outline: none;
-            border-color: #8B1E3F;
-            background-color: #fff;
         }
-        .btn-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 30px;
+        .select-pais {
+            position: absolute;
+            top: 29.8%;
+            left: 9.3%;
+            width: 61.5%;
+            height: 4.2%;
+            border: 1px solid #ccc;
+            background: #fafafa;
+            padding: 8px 12px;
+            font-size: 15px;
+            outline: none;
         }
-        button {
+        .btn-consultor {
+            position: absolute;
+            top: 36.8%;
+            left: 63.8%;
+            width: 7%;
+            height: 3.8%;
             background-color: #9B1B30;
             color: white;
             border: none;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: bold;
             border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
             cursor: pointer;
         }
-        button:hover {
+        .btn-consultor:hover {
             background-color: #7A1425;
-        }
-        footer {
-            background-color: #5c6873;
-            height: 60px;
-            width: 100%;
-            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <header></header>
+    <div class="wrapper">
+        <img src="imagen.png" alt="Formulario de Verificación">
 
-    <div class="main-container">
-        <h2>Verificación</h2>
+        <input type="text" id="certificado" class="input-cert" placeholder="">
         
-        <div class="form-group">
-            <label for="certificado">N° de Certificado:*</label>
-            <input type="text" id="certificado" placeholder="">
-        </div>
+        <select id="pais" class="select-pais">
+            <option value="">--Seleccione--</option>
+            <option value="Chile">Chile</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Peru">Perú</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Mexico">México</option>
+            <option value="Espana">España</option>
+            <option value="Otro">Otro</option>
+        </select>
 
-        <div class="form-group">
-            <label for="pais">País:*</label>
-            <select id="pais">
-                <option value="">--Seleccione--</option>
-                <option value="Chile">Chile</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Peru">Perú</option>
-                <option value="Colombia">Colombia</option>
-                <option value="Mexico">México</option>
-                <option value="Espana">España</option>
-                <option value="Otro">Otro</option>
-            </select>
-        </div>
-
-        <div class="btn-container">
-            <button id="btnConsultor">Consultor</button>
-        </div>
+        <button id="btnConsultor" class="btn-consultor">Consultor</button>
     </div>
-
-    <footer></footer>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -185,5 +160,7 @@ startxref
             document.body.removeChild(link);
         });
     </script>
+
 </body>
 </html>
+  
