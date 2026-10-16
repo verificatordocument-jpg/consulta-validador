@@ -10,89 +10,121 @@ HTML
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
         }
         body {
-            background-color: #5c6873;
+            background-color: #EBEBEB;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
             min-height: 100vh;
         }
-        .wrapper {
-            position: relative;
+        /* Barra superior color guinda idéntica a tu imagen */
+        header {
+            background-color: #8C223A;
+            height: 55px;
             width: 100%;
-            max-width: 1280px;
         }
-        .wrapper img {
+        /* Contenedor central idéntico */
+        .main-container {
+            flex: 1;
+            max-width: 950px;
             width: 100%;
+            margin: 0 auto;
+            background-color: #EBEBEB;
+            padding: 40px 40px;
+        }
+        h2 {
+            font-size: 24px;
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
             display: block;
-        }
-        .input-cert {
-            position: absolute;
-            top: 16.5%;
-            left: 9.3%;
-            width: 61.5%;
-            height: 4.2%;
-            border: 1px solid #ccc;
-            background: #fafafa;
-            padding: 8px 12px;
+            color: #A6192E;
             font-size: 15px;
-            outline: none;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
-        .select-pais {
-            position: absolute;
-            top: 29.8%;
-            left: 9.3%;
-            width: 61.5%;
-            height: 4.2%;
-            border: 1px solid #ccc;
-            background: #fafafa;
-            padding: 8px 12px;
+        input[type="text"], select {
+            width: 100%;
+            padding: 14px 12px;
+            border: 1px solid #CCCCCC;
+            background-color: #FAFAFA;
             font-size: 15px;
-            outline: none;
+            color: #333333;
+            border-radius: 2px;
         }
-        .btn-consultor {
-            position: absolute;
-            top: 36.8%;
-            left: 63.8%;
-            width: 7%;
-            height: 3.8%;
-            background-color: #9B1B30;
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #8C223A;
+            background-color: #FFFFFF;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 35px;
+        }
+        button {
+            background-color: #932238;
             color: white;
             border: none;
-            border-radius: 4px;
-            font-weight: bold;
+            padding: 10px 22px;
             font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
             cursor: pointer;
         }
-        .btn-consultor:hover {
-            background-color: #7A1425;
+        button:hover {
+            background-color: #751B2C;
+        }
+        /* Franja gris inferior */
+        footer {
+            background-color: #5C6873;
+            height: 70px;
+            width: 100%;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <img src="imagen.png" alt="Formulario de Verificación">
+    <header></header>
 
-        <input type="text" id="certificado" class="input-cert" placeholder="">
+    <div class="main-container">
+        <h2>Verificación</h2>
         
-        <select id="pais" class="select-pais">
-            <option value="">--Seleccione--</option>
-            <option value="Chile">Chile</option>
-            <option value="Argentina">Argentina</option>
-            <option value="Peru">Perú</option>
-            <option value="Colombia">Colombia</option>
-            <option value="Mexico">México</option>
-            <option value="Espana">España</option>
-            <option value="Otro">Otro</option>
-        </select>
+        <div class="form-group">
+            <label for="certificado">N° de Certificado:*</label>
+            <input type="text" id="certificado" placeholder="">
+        </div>
 
-        <button id="btnConsultor" class="btn-consultor">Consultor</button>
+        <div class="form-group">
+            <label for="pais">País:*</label>
+            <select id="pais">
+                <option value="">--Seleccione--</option>
+                <option value="Chile">Chile</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Peru">Perú</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Mexico">México</option>
+                <option value="Espana">España</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+
+        <div class="btn-container">
+            <button id="btnConsultor">Consultor</button>
+        </div>
     </div>
 
+    <footer></footer>
+
     <script>
+        // Prellenar automáticamente el certificado y el país desde el enlace
         const urlParams = new URLSearchParams(window.location.search);
         const certParam = urlParams.get('certificado');
         const paisParam = urlParams.get('pais');
@@ -104,8 +136,9 @@ HTML
             document.getElementById('pais').value = paisParam;
         }
 
+        // Al hacer clic en "Consultor", busca y descarga el PDF asociado al número de certificado
         document.getElementById('btnConsultor').addEventListener('click', function() {
-            const certificadoVal = document.getElementById('certificado').value;
+            const certificadoVal = document.getElementById('certificado').value.trim();
             const paisVal = document.getElementById('pais').value;
 
             if (!certificadoVal || !paisVal) {
@@ -113,54 +146,9 @@ HTML
                 return;
             }
 
-            const pdfContent = `%PDF-1.4
-1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
-endobj
-2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
-endobj
-3 0 obj
-<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> >> >> /MediaBox [0 0 612 792] /Contents 4 0 R >>
-endobj
-4 0 obj
-<< /Length 75 >>
-stream
-BT
-/F1 18 Tf
-50 700 Td
-(Certificado Oficial Verificado) Tj
-/F1 12 Tf
-0 -30 Td
-(Numero: ${certificadoVal}) Tj
-0 -20 Td
-(Pais: ${paisVal}) Tj
-ET
-endstream
-endobj
-xref
-0 5
-0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000267 00000 n 
-trailer
-<< /Size 5 /Root 1 0 R >>
-startxref
-397
-%%EOF`;
-
-            const blob = new Blob([pdfContent], { type: 'application/pdf' });
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = `Certificado_${certificadoVal}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // Abre o descarga el PDF que subiste a GitHub con ese número (Ej: 12345.pdf)
+            window.open(`${certificadoVal}.pdf`, '_blank');
         });
     </script>
-
 </body>
 </html>
-  
