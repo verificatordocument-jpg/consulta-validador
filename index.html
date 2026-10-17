@@ -19,7 +19,7 @@ HTML
             align-items: flex-start;
             min-height: 100vh;
         }
-        /* Contenedor principal que adapta tu imagen */
+        /* Contenedor principal */
         .wrapper {
             position: relative;
             width: 100%;
@@ -30,7 +30,18 @@ HTML
             display: block;
         }
 
-        /* TÍTULO EDITABLE SOBRE LA FRANJA ROJA SUPERIOR */
+        /* FRANJA ROJA TAPA-TODO (Oculta cualquier texto que traiga la imagen abajo) */
+        .franja-roja-tapa {
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 7.5%; /* Altura exacta de la barra roja superior */
+            background-color: #8C223A;
+            z-index: 8;
+        }
+
+        /* TÍTULO EDITABLE (Se adapta perfectamente al tamaño del texto nuevo) */
         .titulo-header {
             position: absolute;
             top: 1.2%;
@@ -41,8 +52,6 @@ HTML
             font-family: 'Arial Black', Arial, sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
-            background-color: #8C223A; /* Tapa el texto previo si la imagen lo traía */
-            padding: 2px 8px;
             z-index: 10;
         }
 
@@ -98,7 +107,10 @@ HTML
         <!-- Imagen de fondo -->
         <img src="fondo.png" alt="Verificación">
 
-        <!-- Título Editable -->
+        <!-- Franja roja que oculta el texto viejo de la imagen -->
+        <div class="franja-roja-tapa"></div>
+
+        <!-- Título Editable (Aquí puedes cambiar el texto directamente en el código cuando quieras) -->
         <div id="tituloHeader" class="titulo-header">VALIDADOR</div>
 
         <!-- Entradas interactivas -->
