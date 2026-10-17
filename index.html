@@ -1,0 +1,152 @@
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Certificado</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background-color: #5c6873;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+        }
+        .wrapper img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Franja roja que tapa cualquier texto previo */
+        .franja-roja-tapa {
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 7.5%;
+            background-color: #8C223A;
+            z-index: 8;
+        }
+
+        /* Título editable */
+        .titulo-header {
+            position: absolute;
+            top: 1.2%;
+            left: 4.8%;
+            color: #FFFFFF;
+            font-size: 26px;
+            font-weight: 900;
+            font-family: 'Arial Black', Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .input-cert {
+            position: absolute;
+            top: 17.0%;
+            left: 11.5%;
+            width: 76%;
+            height: 5.2%;
+            border: 1px solid #ccc;
+            background: #fafafa;
+            padding: 8px 12px;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+            z-index: 5;
+        }
+
+        .select-pais {
+            position: absolute;
+            top: 29.3%;
+            left: 11.5%;
+            width: 76%;
+            height: 5.2%;
+            border: 1px solid #ccc;
+            background: #fafafa;
+            padding: 8px 12px;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+            z-index: 5;
+        }
+
+        .btn-consultor {
+            position: absolute;
+            top: 38.2%;
+            left: 78.5%;
+            width: 9.2%;
+            height: 4.5%;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <img src="fondo.png" alt="Verificación">
+        <div class="franja-roja-tapa"></div>
+        <div id="tituloHeader" class="titulo-header">VALIDADOR</div>
+
+        <input type="text" id="certificado" class="input-cert">
+        
+        <select id="pais" class="select-pais">
+            <option value="">--Seleccione--</option>
+            <option value="Chile">Chile</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Peru">Perú</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Mexico">México</option>
+            <option value="Espana">España</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <button id="btnConsultor" class="btn-consultor"></button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const tituloParam = urlParams.get('titulo');
+        const certParam = urlParams.get('certificado');
+        const paisParam = urlParams.get('pais');
+
+        if (tituloParam) {
+            document.getElementById('tituloHeader').textContent = tituloParam;
+        }
+        if (certParam) {
+            document.getElementById('certificado').value = certParam;
+        }
+        if (paisParam) {
+            document.getElementById('pais').value = paisParam;
+        }
+
+        document.getElementById('btnConsultor').addEventListener('click', function() {
+            const certificadoVal = document.getElementById('certificado').value.trim();
+            const paisVal = document.getElementById('pais').value;
+
+            if (!certificadoVal || !paisVal) {
+                alert('Por favor, complete el número de certificado y seleccione el país.');
+                return;
+            }
+
+            window.open(`${certificadoVal}.pdf`, '_blank');
+        });
+    </script>
+</body>
+</html>
