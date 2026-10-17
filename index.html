@@ -4,7 +4,7 @@ HTML
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALIDADOR - Verificación</title>
+    <title>Verificación de Certificado</title>
     <style>
         * {
             box-sizing: border-box;
@@ -19,7 +19,7 @@ HTML
             align-items: flex-start;
             min-height: 100vh;
         }
-        /* Contenedor que adapta perfectamente tu imagen definitiva */
+        /* Contenedor principal que adapta tu imagen */
         .wrapper {
             position: relative;
             width: 100%;
@@ -29,35 +29,56 @@ HTML
             width: 100%;
             display: block;
         }
-        /* Casilla interactiva para el N° de Certificado (calzada sobre la imagen) */
+
+        /* TÍTULO EDITABLE SOBRE LA FRANJA ROJA SUPERIOR */
+        .titulo-header {
+            position: absolute;
+            top: 1.2%;
+            left: 4.8%;
+            color: #FFFFFF;
+            font-size: 26px;
+            font-weight: 900;
+            font-family: 'Arial Black', Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-color: #8C223A; /* Tapa el texto previo si la imagen lo traía */
+            padding: 2px 8px;
+            z-index: 10;
+        }
+
+        /* Casilla para el N° de Certificado */
         .input-cert {
             position: absolute;
             top: 17.0%;
             left: 11.5%;
             width: 76%;
             height: 5.2%;
-            border: none;
-            background: transparent;
+            border: 1px solid #ccc;
+            background: #fafafa;
             padding: 8px 12px;
             font-size: 16px;
             color: #333;
             outline: none;
+            z-index: 5;
         }
-        /* Casilla interactiva para el selector de País (calzada sobre la imagen) */
+
+        /* Casilla para seleccionar el País */
         .select-pais {
             position: absolute;
             top: 29.3%;
             left: 11.5%;
             width: 76%;
             height: 5.2%;
-            border: none;
-            background: transparent;
+            border: 1px solid #ccc;
+            background: #fafafa;
             padding: 8px 12px;
             font-size: 16px;
             color: #333;
             outline: none;
+            z-index: 5;
         }
-        /* Botón invisible o transparente colocado exactamente sobre el botón rojo "Consultor" de tu imagen */
+
+        /* Botón Consultor */
         .btn-consultor {
             position: absolute;
             top: 38.2%;
@@ -67,16 +88,20 @@ HTML
             background-color: transparent;
             border: none;
             cursor: pointer;
+            z-index: 5;
         }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
-        <!-- Tu imagen definitiva con todos los textos, títulos y estilos -->
-        <img src="fondo.png" alt="VALIDADOR">
+        <!-- Imagen de fondo -->
+        <img src="fondo.png" alt="Verificación">
 
-        <!-- Entradas interactivas ubicadas exactamente sobre los espacios en blanco -->
+        <!-- Título Editable -->
+        <div id="tituloHeader" class="titulo-header">VALIDADOR</div>
+
+        <!-- Entradas interactivas -->
         <input type="text" id="certificado" class="input-cert">
         
         <select id="pais" class="select-pais">
@@ -94,11 +119,16 @@ HTML
     </div>
 
     <script>
-        // Prellenar automáticamente los datos si vienen por parámetros en la URL
+        // Lectura de parámetros dinámicos en la URL (?titulo=X&certificado=Y&pais=Z)
         const urlParams = new URLSearchParams(window.location.search);
+        const tituloParam = urlParams.get('titulo');
         const certParam = urlParams.get('certificado');
         const paisParam = urlParams.get('pais');
 
+        // Si envías un título en el enlace, lo reemplaza automáticamente
+        if (tituloParam) {
+            document.getElementById('tituloHeader').textContent = tituloParam;
+        }
         if (certParam) {
             document.getElementById('certificado').value = certParam;
         }
@@ -106,7 +136,7 @@ HTML
             document.getElementById('pais').value = paisParam;
         }
 
-        // Al hacer clic en el botón "Consultor", abre o descarga el PDF asociado al número ingresado
+        // Descarga del PDF al presionar "Consultor"
         document.getElementById('btnConsultor').addEventListener('click', function() {
             const certificadoVal = document.getElementById('certificado').value.trim();
             const paisVal = document.getElementById('pais').value;
@@ -116,7 +146,6 @@ HTML
                 return;
             }
 
-            // Abre el archivo PDF guardado con ese número exacto en tu repositorio (Ej: 123456.pdf)
             window.open(`${certificadoVal}.pdf`, '_blank');
         });
     </script>
