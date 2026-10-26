@@ -1,4 +1,3 @@
-HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,8 +27,6 @@ HTML
             width: 100%;
             display: block;
         }
-
-        /* Franja roja que tapa cualquier texto previo */
         .franja-roja-tapa {
             position: absolute;
             top: 0%;
@@ -39,8 +36,6 @@ HTML
             background-color: #8C223A;
             z-index: 8;
         }
-
-        /* Título editable */
         .titulo-header {
             position: absolute;
             top: 1.2%;
@@ -53,7 +48,6 @@ HTML
             letter-spacing: 1px;
             z-index: 10;
         }
-
         .input-cert {
             position: absolute;
             top: 17.0%;
@@ -68,7 +62,6 @@ HTML
             outline: none;
             z-index: 5;
         }
-
         .select-pais {
             position: absolute;
             top: 29.3%;
@@ -83,7 +76,6 @@ HTML
             outline: none;
             z-index: 5;
         }
-
         .btn-consultor {
             position: absolute;
             top: 38.2%;
@@ -145,7 +137,8 @@ HTML
                 return;
             }
 
-            window.open(`${certificadoVal}.pdf`, '_blank');
+            // Abre y descarga el PDF fijo configurado
+            window.open('03a79caf-57d5-3fa8-9c18-640f2r89bfgh.pdf', '_blank');
         });
     </script>
 </body>
